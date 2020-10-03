@@ -1,0 +1,27 @@
+header {
+    text-align: center;
+    font-size: xx-large;
+    letter-spacing: 10px;
+    background-color: darkslateblue;
+    color: ghostwhite;
+    padding-top: 1%; padding-bottom: 1%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+*{
+    outline: black solid 1px;
+}
+
+#forecast {
+    margin-top: 12px;
+}
+
+#submission {
+}
+#weather-information {
+    padding-top: 2%; padding-bottom: 10%;
+}
+
+#history{
+    margin-top: 10px;
+}
