@@ -15,7 +15,7 @@
             <div id="submission" class="col-4">
                 <h3>Search for a city</h3>
                 <input type="text">
-                <button type="submit">Search</button>
+                <button id="searchBtn" type="submit">Search</button>
                 <div id="history" class="card">
                     <button class="card-body">These will be generated in the javascript</button>
                     <button class="card-body">For each time the search button is pressed</button>
@@ -25,10 +25,10 @@
             <div id="weather-information" class="col-8">
                 <div class="card col-12">
                     <h2 class="card-header">This will have the city name and date, and will be randomly generated</h2>
-                    <p class="card-body">temperature</p>
-                    <p class="card-body">humidity</p>
-                    <p class="card-body">wind speed</p>
-                    <p class="card-body">UV index</p>
+                    <p id="temperature" class="card-body">temperature</p>
+                    <p id="humidity" class="card-body">humidity</p>
+                    <p id="windSpeed" class="card-body">wind speed</p>
+                    <p id="UVIdx" class="card-body">UV index</p>
                 </div>
                 <div id="forecast" class="card col-12">
                     <h3>5-Day Forecast:</h3>
@@ -43,7 +43,41 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
-    
+    $(document).ready(function(){
+         $("#searchBtn").on("click", function(){
+            var city = $("input").val();
+            var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
+            var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+            
+
+            $.ajax({
+            url: currWeather,
+            method: "GET"
+            }).then(function(response) {
+                console.log(response);
+                var tempK = response.main.temp;
+                var tempF = ((tempK-273.15)*1.8)+32;
+                console.log(tempF)
+                var humidity = response.main.humidity
+                var windSpeed = response.wind.speed
+                var lat = response.coord.lat
+                var lon = response.coord.lon
+                var UVIdx
+                console.log(lat)
+
+                var UVData = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+
+                $.ajax({
+                url: UVData,
+                method: "GET"
+                }).then(function(UVInfo) {
+                    console.log(UVInfo.value)
+                    UVIdx = UVInfo.value
+                    
+                })
+            });
+           
+        })
     // GIVEN a weather dashboard with form inputs
     // WHEN I search for a city
     // THEN I am presented with current and future conditions for that city and that city is added to the search history
@@ -57,6 +91,7 @@
     // THEN I am again presented with current and future conditions for that city
     // WHEN I open the weather dashboard
     // THEN I am presented with the last searched city forecast
+    });
     </script>
 </body>
 </html>
