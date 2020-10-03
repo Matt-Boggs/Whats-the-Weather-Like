@@ -5,9 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="assets/stylesheet.css">
+    <title>Weather Dashboard</title>
 </head>
 <body>
+    <header>Weather Dashboard</header>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="submission" class="col-4">
+                <h3>Search for a city</h3>
+                <input type="text">
+                <button type="submit">Search</button>
+                <div id="history" class="card">
+                    <span class="card-body">These will be generated in the javascript</span>
+                    <span class="card-body">For each time the search button is pressed</span>
+                    <span class="card-body">It will create a span with the city name you searched</span>
+                </div>
+            </div>
+            <div id="weather-information" class="col-8">
+                <div class="card col-12">
+                    <h2 class="card-header">This will have the city name and date, and will be randomly generated</h2>
+                    <p class="card-body">temperature</p>
+                    <p class="card-body">humidity</p>
+                    <p class="card-body">wind speed</p>
+                    <p class="card-body">UV index</p>
+                </div>
+                <div id="forecast" class="card col-12">
+                    <h3>5-Day Forecast:</h3>
+                    <span id="5DayForecast" class="card-body">This is where the 5 day forecast will be generated</span>
+                </div>
+            </div>
+        </div>
+    </div>
     
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
