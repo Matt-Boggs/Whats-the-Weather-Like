@@ -17,8 +17,23 @@ footer {
     padding-bottom: 50px;
 }
 
-*{
-    /* outline: black solid 1px; */
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.orange {
+    background-color: orange;
+}
+.red {
+    background-color: red;
+}
+
+.purple {
+    background-color: purple;
 }
 
 #forecast {
