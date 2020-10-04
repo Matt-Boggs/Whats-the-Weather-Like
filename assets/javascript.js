@@ -1,12 +1,13 @@
 $(document).ready(function(){
+
     $("#searchBtn").on("click", function(){
         // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE
+
        var city = $("input").val();
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
        var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
        var today = dayjs().format('MMMM D');
        var forecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey
-
        // This populates the established datafields with information grabbed based on search. It also contains the logic for UV index
        $.ajax({
        url: currWeather,
@@ -59,14 +60,15 @@ $(document).ready(function(){
         url: forecast,
         method: "GET"
         }).then(function(fiveDay) {
-            
-            for (i=0;i<5;i++){
-                console.log(fiveDay.list[i])
+            for (i=0;i<40;i+=8){
+                console.log(fiveDay.list[i].dt_txt)
+                var longForm = fiveDay.list[i].dt_txt
+                var shortForm = longForm.slice(8,10)
                 tempF =  Math.floor((((fiveDay.list[i].main.temp)-273.15)*1.8)+32)
 
                 var oneDay = $("<div>");
                 oneDay.addClass("card col-2");
-                var date = $("<p>").text("PlaceHolder")
+                var date = $("<p>").text(shortForm)
                 var temp = $("<p>").text("Temp: " + tempF)
                 var humid = $("<p>").text("Humidity: " + fiveDay.list[i].main.humidity);
                 oneDay.append(date).append(temp).append(humid)
