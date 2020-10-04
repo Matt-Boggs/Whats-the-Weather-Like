@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#searchBtn").on("click", function(){
+        // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE
        var city = $("input").val();
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
        var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
@@ -65,7 +66,7 @@ $(document).ready(function(){
 
                 var oneDay = $("<div>");
                 oneDay.addClass("card col-2");
-                var date = $("<p>").text()
+                var date = $("<p>").text("PlaceHolder")
                 var temp = $("<p>").text("Temp: " + tempF)
                 var humid = $("<p>").text("Humidity: " + fiveDay.list[i].main.humidity);
                 oneDay.append(date).append(temp).append(humid)
