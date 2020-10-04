@@ -40,6 +40,11 @@ footer {
     margin-top: 12px;
 }
 
+.col-2 {
+    font-size: x-small;
+    margin-bottom: 2%;
+}
+
 #submission {
     background-color: rgb(216, 216, 216);
 }
