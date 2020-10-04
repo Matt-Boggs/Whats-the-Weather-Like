@@ -4,12 +4,13 @@ $(document).ready(function(){
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
        var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
        var today = dayjs().format('MMMM D');
+       var forecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey
 
+       // This populates the established datafields with information grabbed based on search. It also contains the logic for UV index
        $.ajax({
        url: currWeather,
        method: "GET"
        }).then(function(response) {
-           console.log(response);
            $("h2").text(city + " " + today)
            var tempK = response.main.temp;
            var tempF = Math.floor(((tempK-273.15)*1.8)+32);
@@ -24,6 +25,7 @@ $(document).ready(function(){
 
            var UVData = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
 
+           //this populates the UV index field, and colors the background according to severity of UV exposure
            $.ajax({
            url: UVData,
            method: "GET"
@@ -47,10 +49,20 @@ $(document).ready(function(){
                } else if (UVIdx>10.5){
                 //purple
                 UVCard.addClass("purple");
-               }
-               
+               }   
            })
        });
+
+       //5 day forecast code goes here
+       $.ajax({
+        url: forecast,
+        method: "GET"
+        }).then(function(fiveDay) {
+            for (i=0;i<6;i++){
+                console.log(fiveDay.list[i])\
+                // var oneDay = $("<>")
+            }
+        })
    });
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
