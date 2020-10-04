@@ -75,6 +75,11 @@ $(document).ready(function(){
                 $("#forecast").append(oneDay)
             }
         })
+
+        var previousSearch = $("<button>");
+        previousSearch.addClass("card-body");
+        previousSearch.text(city);
+        $("#history").append(previousSearch);
    });
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
