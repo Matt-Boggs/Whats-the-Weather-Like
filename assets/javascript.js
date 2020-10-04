@@ -59,7 +59,7 @@ $(document).ready(function(){
         method: "GET"
         }).then(function(fiveDay) {
             for (i=0;i<6;i++){
-                console.log(fiveDay.list[i])\
+                console.log(fiveDay.list[i])
                 // var oneDay = $("<>")
             }
         })
