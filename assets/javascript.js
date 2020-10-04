@@ -32,7 +32,7 @@ $(document).ready(function(){
            }).then(function(UVInfo) {
                UVIdx = UVInfo.value
                UVCard = $("#UVIdx")
-               UVCard.text(UVIdx)
+               UVCard.text("UV index:" +  UVIdx)
                 
                if (UVIdx<2.5){
                 //green
@@ -58,9 +58,18 @@ $(document).ready(function(){
         url: forecast,
         method: "GET"
         }).then(function(fiveDay) {
-            for (i=0;i<6;i++){
+            
+            for (i=0;i<5;i++){
                 console.log(fiveDay.list[i])
-                // var oneDay = $("<>")
+                tempF =  Math.floor((((fiveDay.list[i].main.temp)-273.15)*1.8)+32)
+
+                var oneDay = $("<div>");
+                oneDay.addClass("card col-2");
+                var date = $("<p>").text()
+                var temp = $("<p>").text("Temp: " + tempF)
+                var humid = $("<p>").text("Humidity: " + fiveDay.list[i].main.humidity);
+                oneDay.append(date).append(temp).append(humid)
+                $("#forecast").append(oneDay)
             }
         })
    });
