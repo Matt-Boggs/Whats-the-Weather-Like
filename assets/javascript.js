@@ -1,24 +1,37 @@
-// TURN CITY INTO AN OBJECT?
-// city = {
-//     temp: "temp",
-//     humid: "humid",
-//     wind: "wind",
-//     UV: "UV"
-// }
+
+// EACH SEARCH WILL PUSH TO THIS ARRAY
+// SEARCHES = [
+//     city1 = {
+//         name: "bla",
+//         temp: "bla",
+//         humid: "bla",
+//         wind: "bla",
+//         UV: "bla"
+//     },
+//     city2 = {
+//             name: "bla",
+//             temp: "bla",
+//             humid: "bla",
+//             wind: "bla",
+//             UV: "bla"
+//         }
+// ]
+
+
+// MAYBE CREATE AN ARRAY OF CITIES AS OBJECTS, SO THE ARRAY CAN BE SAVED TO LOCAL STORAGE AND THEN GRABBED FOR THE SEARCH HISTORY
 //##### Unit 06 Homework Summary and Tips #########
 // My tips:
 //   a. Make sure you can retrieve data via the API for a city, both for the current day and a multi-day forecast (these may need to be two separate API calls)
 //   b. Determine how you'll manage the list of cities to the left. When a user enters a city name, after the response is received from OpenWeather, the city name should be added to the list. Be sure to prevent duplicates. You'll need to store the city list in local storage as well, so get that process figured out.
 //   c. When the user clicks on a city name, the API query should run again, just as if the user had typed the city in at the top. So maybe the city-typing and the city-clicking should both go to the same function for API lookup... ? 
-//   d. Each block if the 5-day forecast is the same thing, just with different data. So think about that.
-// 3. Each of the sections above can be broken up into smaller sections as you see fit for work. Break things down as much as you need to. PSEUDOCODE!
-// 4. You can always create your functions in advance and build your logic flow before you have the functionality finished. Use comments to help remind you what each function is supposed to do.
-// 5. Console.logs are a great way to make sure you're working with the correct data at any point.
+
+//CREATE FUNCTION FOR ONCLICK FUNCTION, SO ONCLICK FUINCTION CAN BE USED FOR SEARCH HISTORY AS WELL
+
 
 $(document).ready(function(){
 
     $("#searchBtn").on("click", function(){
-        // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE
+        // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE, use empty()?
        var city = $("input").val();
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
        var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
@@ -29,21 +42,27 @@ $(document).ready(function(){
        url: currWeather,
        method: "GET"
        }).then(function(response) {
-           console.log(response.weather[0].icon)
-           var myIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png")
-           console.log(myIcon)
-           $("h2").text(city + " " + today).append(myIcon)
+
+            // var city = {
+            // temp: "temp",
+            // humid: "humid",
+            // wind: "wind",
+            // UV: "UV"
+            // }
+            // SET THIS UP SO IT FEEDS INTO A CITY OBJECT, WHICH IS THEN PUSHED TO THE SEARCH ARRAY
+           var myIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+           $("h2").text(city + " " + today).append(myIcon);
            
            var tempK = response.main.temp;
            var tempF = Math.floor(((tempK-273.15)*1.8)+32);
-           var humidity = response.main.humidity
-           var windSpeed = response.wind.speed
-           $("#temperature").text("Temperature: " + tempF)
-           $("#humidity").text("Humidity " + humidity)
-           $("#windSpeed").text("Wind Speed: " + windSpeed)
-           var lat = response.coord.lat
-           var lon = response.coord.lon
-           var UVIdx
+           var humidity = response.main.humidity;
+           var windSpeed = response.wind.speed;
+           $("#temperature").text("Temperature: " + tempF);
+           $("#humidity").text("Humidity " + humidity);
+           $("#windSpeed").text("Wind Speed: " + windSpeed);
+           var lat = response.coord.lat;
+           var lon = response.coord.lon;
+           var UVIdx;
 
            var UVData = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
 
@@ -52,10 +71,10 @@ $(document).ready(function(){
            url: UVData,
            method: "GET"
            }).then(function(UVInfo) {
-               UVIdx = UVInfo.value
-               UVCard = $("#UVIdx")
-               UVCard.text("UV index:" +  UVIdx)
-               UVCard.removeClass("green yellow orange red purple")// This makes the function repeatable
+               UVIdx = UVInfo.value;
+               UVCard = $("#UVIdx");
+               UVCard.text("UV index:" +  UVIdx);
+               UVCard.removeClass("green yellow orange red purple");// This makes the function repeatable
                 
                if (UVIdx<2.5){
                 //green
@@ -73,7 +92,7 @@ $(document).ready(function(){
                 //purple
                 UVCard.addClass("purple");
                }   
-           })
+           });
        });
 
        //5 day forecast code goes here
