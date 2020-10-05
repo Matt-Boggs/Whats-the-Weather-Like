@@ -30,7 +30,7 @@
 
 $(document).ready(function(){
 
-    $("#searchBtn").on("click", function(){
+    function grabThatCast(){
         // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE, use empty()?
        var city = $("input").val();
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
@@ -100,10 +100,13 @@ $(document).ready(function(){
         url: forecast,
         method: "GET"
         }).then(function(fiveDay) {
+            var cityCast = $("<div>")
+            cityCast.addClass("col-1 card")
+            cityCast.text((city).toUpperCase())
+            $("#forecast").append(cityCast)
             for (i=0;i<40;i+=8){
                 var foreIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + fiveDay.list[i].weather[0].icon + ".png");
                 
-                console.log(fiveDay.list[i].weather[0].icon);
                 var longForm = fiveDay.list[i].dt_txt;
                 var shortForm = longForm.slice(8,10);
                 tempF =  Math.floor((((fiveDay.list[i].main.temp)-273.15)*1.8)+32);
@@ -117,20 +120,28 @@ $(document).ready(function(){
                 $("#forecast").append(oneDay);
             }
         })
-
         var previousSearch = $("<button>");
         previousSearch.addClass("card-body");
         previousSearch.text(city);
         $("#history").append(previousSearch);
-        previousSearch.on("click", function(){
-            console.log("click")
-            // Where should storage stuff be set?
-            // Grab local storage stuff?
+    }
+    $("#searchBtn").on("click", grabThatCast)
 
-            // THIS MIGHT BE EASIER IF I TURN THE CITY INTO AN OBJECT WITH KEYS FOR TEMP/HUMID ETC
-            
-        })
    });
+        
+        
+        // previousSearch.on("click", function(){
+        //     console.log("click")
+        //     city = $(this).text()
+        //     console.log(city)
+        //     grabThatCast(city)
+        //     // Where should storage stuff be set?
+        //     // Grab local storage stuff?
+
+        //     // THIS MIGHT BE EASIER IF I TURN THE CITY INTO AN OBJECT WITH KEYS FOR TEMP/HUMID ETC
+            
+        // })
+        
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
@@ -144,4 +155,4 @@ $(document).ready(function(){
 // THEN I am again presented with current and future conditions for that city
 // WHEN I open the weather dashboard
 // THEN I am presented with the last searched city forecast
-});
+
