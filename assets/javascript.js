@@ -30,7 +30,7 @@ $(document).ready(function(){
        method: "GET"
        }).then(function(response) {
            console.log(response.weather[0].icon)
-           var myIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + "02d" + ".png")
+           var myIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png")
            console.log(myIcon)
            $("h2").text(city + " " + today).append(myIcon)
            
@@ -82,14 +82,16 @@ $(document).ready(function(){
         method: "GET"
         }).then(function(fiveDay) {
             for (i=0;i<40;i+=8){
-                console.log(fiveDay.list[i].dt_txt);
+                var foreIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + fiveDay.list[i].weather[0].icon + ".png");
+                
+                console.log(fiveDay.list[i].weather[0].icon);
                 var longForm = fiveDay.list[i].dt_txt;
                 var shortForm = longForm.slice(8,10);
                 tempF =  Math.floor((((fiveDay.list[i].main.temp)-273.15)*1.8)+32);
 
                 var oneDay = $("<div>");
                 oneDay.addClass("card col-2");
-                var date = $("<p>").text(shortForm);
+                var date = $("<p>").text(shortForm).append(foreIcon);
                 var temp = $("<p>").text("Temp: " + tempF);
                 var humid = $("<p>").text("Humidity: " + fiveDay.list[i].main.humidity);
                 oneDay.append(date).append(temp).append(humid);
