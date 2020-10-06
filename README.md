@@ -1,3 +1,2 @@
 # Whats-the-Weather-Like
-![In Action](assets/images/WeatherApp.png)
-Format: ![Alt Text](url)
+![In Action](https://imgur.com/Lrt9O1x)
