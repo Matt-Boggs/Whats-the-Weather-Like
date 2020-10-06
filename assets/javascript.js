@@ -29,6 +29,8 @@
 
 
 $(document).ready(function(){
+    var x=0;
+    var searches = [];
 
     function grabThatCast(){
         // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE, use empty()?
@@ -36,19 +38,14 @@ $(document).ready(function(){
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
        var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
        var today = dayjs().format('MMMM D');
-       var forecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey
+       var forecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
        // This populates the established datafields with information grabbed based on search. It also contains the logic for UV index
        $.ajax({
        url: currWeather,
        method: "GET"
        }).then(function(response) {
 
-            // var city = {
-            // temp: "temp",
-            // humid: "humid",
-            // wind: "wind",
-            // UV: "UV"
-            // }
+            
             // SET THIS UP SO IT FEEDS INTO A CITY OBJECT, WHICH IS THEN PUSHED TO THE SEARCH ARRAY
            var myIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
            $("h2").text(city + " " + today).append(myIcon);
@@ -71,7 +68,7 @@ $(document).ready(function(){
            url: UVData,
            method: "GET"
            }).then(function(UVInfo) {
-               UVIdx = UVInfo.value;
+               UVIdx = parseInt(UVInfo.value);
                UVCard = $("#UVIdx");
                UVCard.text("UV index:" +  UVIdx);
                UVCard.removeClass("green yellow orange red purple");// This makes the function repeatable
@@ -93,6 +90,17 @@ $(document).ready(function(){
                 UVCard.addClass("purple");
                }   
            });
+           var search = {
+            num: x,
+            name: city,
+            temp: tempF,
+            humid: humidity,
+            wind: windSpeed,
+            UV: UVIdx,
+            };
+            searches.push(search)
+            console.log(search)
+            console.log(searches)
        });
 
        //5 day forecast code goes here
@@ -120,14 +128,28 @@ $(document).ready(function(){
                 $("#forecast").append(oneDay);
             }
         })
+       
+
+
+        x++;
+        
         var previousSearch = $("<button>");
-        previousSearch.addClass("card-body");
+        previousSearch.addClass("card-body prevSearch");
         previousSearch.text(city);
         $("#history").append(previousSearch);
     }
     $("#searchBtn").on("click", grabThatCast)
+    var prevSearch = $(".prevSearch")
+    prevSearch.on("click", function(){
+        savedID = $(this).text()
+        console.log(savedID)
 
-   });
+    })
+
+
+
+
+});
         
         
         // previousSearch.on("click", function(){
