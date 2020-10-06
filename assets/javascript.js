@@ -25,7 +25,6 @@
 //   b. Determine how you'll manage the list of cities to the left. When a user enters a city name, after the response is received from OpenWeather, the city name should be added to the list. Be sure to prevent duplicates. You'll need to store the city list in local storage as well, so get that process figured out.
 //   c. When the user clicks on a city name, the API query should run again, just as if the user had typed the city in at the top. So maybe the city-typing and the city-clicking should both go to the same function for API lookup... ? 
 
-//CREATE FUNCTION FOR ONCLICK FUNCTION, SO ONCLICK FUINCTION CAN BE USED FOR SEARCH HISTORY AS WELL
 
 
 $(document).ready(function(){
@@ -55,7 +54,7 @@ $(document).ready(function(){
            var humidity = response.main.humidity;
            var windSpeed = response.wind.speed;
            $("#temperature").text("Temperature: " + tempF);
-           $("#humidity").text("Humidity " + humidity);
+           $("#humidity").text("Humidity: " + humidity);
            $("#windSpeed").text("Wind Speed: " + windSpeed);
            var lat = response.coord.lat;
            var lon = response.coord.lon;
@@ -68,7 +67,7 @@ $(document).ready(function(){
            url: UVData,
            method: "GET"
            }).then(function(UVInfo) {
-               UVIdx = parseInt(UVInfo.value);
+               UVIdx = UVInfo.value;
                UVCard = $("#UVIdx");
                UVCard.text("UV index:" +  UVIdx);
                UVCard.removeClass("green yellow orange red purple");// This makes the function repeatable
@@ -160,21 +159,6 @@ $(document).ready(function(){
         //     // Where should storage stuff be set?
         //     // Grab local storage stuff?
 
-        //     // THIS MIGHT BE EASIER IF I TURN THE CITY INTO AN OBJECT WITH KEYS FOR TEMP/HUMID ETC
-            
-        // })
+
         
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-// WHEN I open the weather dashboard
-// THEN I am presented with the last searched city forecast
 
