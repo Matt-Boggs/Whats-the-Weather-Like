@@ -6,9 +6,9 @@ $(document).ready(function(){
         // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE, use empty()?
        var city = $("input").val();
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
-       var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+       var currWeather = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
        var today = dayjs().format('MMMM D');
-       var forecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+       var forecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
        // This populates the established datafields with information grabbed based on search. It also contains the logic for UV index
        $.ajax({
        url: currWeather,
@@ -31,7 +31,7 @@ $(document).ready(function(){
            var lon = response.coord.lon;
            var UVIdx;
 
-           var UVData = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+           var UVData = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
 
            // This populates the UV index field, and colors the background according to severity of UV exposure
            $.ajax({
