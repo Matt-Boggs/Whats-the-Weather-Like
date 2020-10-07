@@ -17,7 +17,7 @@ $(document).ready(function(){
 
             
             // SET THIS UP SO IT FEEDS INTO A CITY OBJECT, WHICH IS THEN PUSHED TO THE SEARCH ARRAY
-           var myIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+           var myIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
            $("h2").text(city + " " + today).append(myIcon);
            
            var tempK = response.main.temp;
@@ -31,7 +31,7 @@ $(document).ready(function(){
            var lon = response.coord.lon;
            var UVIdx;
 
-           var UVData = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+           var UVData = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
 
            // This populates the UV index field, and colors the background according to severity of UV exposure
            $.ajax({
