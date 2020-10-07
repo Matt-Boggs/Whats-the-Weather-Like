@@ -6,9 +6,9 @@ $(document).ready(function(){
         // NEED TO CLEAR 5 DAY FORECAST CARD UP HERE FOR THIS TO BE REPEATABLE, use empty()?
        var city = $("input").val();
        var APIKey = "fcb576af35c3fbdedb5fb9ae90dcf378";
-       var currWeather = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+       var currWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
        var today = dayjs().format('MMMM D');
-       var forecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+       var forecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
        // This populates the established datafields with information grabbed based on search. It also contains the logic for UV index
        $.ajax({
        url: currWeather,
@@ -31,7 +31,7 @@ $(document).ready(function(){
            var lon = response.coord.lon;
            var UVIdx;
 
-           var UVData = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+           var UVData = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
 
            // This populates the UV index field, and colors the background according to severity of UV exposure
            $.ajax({
@@ -83,7 +83,7 @@ $(document).ready(function(){
             cityCast.text((city).toUpperCase());
             $("#forecast").append(cityCast);
             for (i=0;i<40;i+=8){
-                var foreIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + fiveDay.list[i].weather[0].icon + ".png");
+                var foreIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + fiveDay.list[i].weather[0].icon + ".png");
                 
                 var longForm = fiveDay.list[i].dt_txt;
                 var shortForm = longForm.slice(8,10);
